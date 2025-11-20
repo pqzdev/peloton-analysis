@@ -46,8 +46,13 @@ class PelotonAuthenticator:
                 'password': self.password
             }
 
+            headers = {
+                'Content-Type': 'application/json',
+                'User-Agent': 'peloton-analysis/0.1.0'
+            }
+
             logger.info("Attempting to authenticate with Peloton API...")
-            response = self.session.post(self.AUTH_ENDPOINT, json=payload)
+            response = self.session.post(self.AUTH_ENDPOINT, json=payload, headers=headers)
             response.raise_for_status()
 
             data = response.json()

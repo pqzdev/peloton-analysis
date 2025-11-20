@@ -39,40 +39,26 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 2. Configure Credentials
+### 2. Download Your Peloton Data
 
-Create a `.env` file with your Peloton credentials:
+**Important:** As of November 2025, Peloton has blocked the unofficial API endpoint. Use the official CSV export instead:
 
-```bash
-cp .env.example .env
-# Edit .env and add your credentials
-```
+1. Go to https://members.onepeloton.com/profile/workouts
+2. Sign in with your Peloton credentials
+3. Click **"DOWNLOAD WORKOUTS"** button (top right)
+4. Save the CSV file to your computer
 
-Your `.env` should contain:
-```
-PELOTON_USERNAME=your_username_or_email
-PELOTON_PASSWORD=your_password
-```
+**Note:** This feature requires your language to be set to English and is only available via web browser.
 
-### 3. Test Connection
+### 3. Import Your Data
 
 ```bash
-python scripts/test_connection.py
-```
-
-This will authenticate and fetch your recent workout data to verify everything is working.
-
-## Usage
-
-### Fetch All Your Workout Data
-
-```bash
-python scripts/fetch_all_workouts.py
+python scripts/import_csv.py ~/Downloads/workouts.csv
 ```
 
 This will:
-- Authenticate with Peloton
-- Fetch all your workout history (with pagination)
+- Load your workout data from the CSV
+- Convert to JSON format
 - Save to `data/raw/workouts_latest.json`
 - Display summary statistics
 
